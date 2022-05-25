@@ -6,3 +6,4 @@
 
 - [Lenet-5](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf)
 - [VGG16](https://arxiv.org/abs/1409.1556)
+- [AlexNet](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
