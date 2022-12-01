@@ -1,3 +1,4 @@
 [submodule "unet"]
 	path = unet
 	url = https://github.com/shreydan/vanilla-unet.git
+	branch = main
