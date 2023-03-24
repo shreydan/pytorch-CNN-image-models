@@ -8,3 +8,4 @@
 - [VGG16](https://arxiv.org/abs/1409.1556)
 - [AlexNet](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
 - [U-Net](https://arxiv.org/abs/1505.04597)
+- [ResNet](https://arxiv.org/abs/1512.03385) small version + slight modifications inspired by `timm`
