@@ -9,7 +9,7 @@ class ResNetBlock(nn.Module):
         self.downsample = downsample
         initial_stride = 2 if self.downsample else 1
 
-        self.block1 = nn.Sequential(
+        self.block = nn.Sequential(
             nn.Conv2d(
                 channels,
                 channels * expand_dim,
@@ -20,9 +20,6 @@ class ResNetBlock(nn.Module):
             ),
             nn.BatchNorm2d(channels * expand_dim),
             nn.ReLU(),
-        )
-
-        self.block2 = nn.Sequential(
             nn.Conv2d(
                 channels * expand_dim,
                 channels * expand_dim,
@@ -54,8 +51,7 @@ class ResNetBlock(nn.Module):
 
     def forward(self, x):
         identity = x
-        x = self.block1(x)
-        x = self.block2(x)
+        x = self.block(x)
 
         if self.downsample:
             identity = self.downsample_layer(identity)
@@ -91,11 +87,23 @@ class ResNet(nn.Module):
         )
 
         self.head = nn.Sequential(
-            nn.Flatten(), nn.AdaptiveAvgPool1d(512), nn.Linear(512, num_classes)
+            nn.Flatten(),
+            nn.AdaptiveAvgPool1d(1024),
+            nn.Linear(1024,num_classes)
         )
 
     def forward(self, x):
         x = self.initial_layer(x)
         x = self.layers(x)
-        x = self.head(x)
+        # x = self.head(x)
+
         return x
+
+
+if __name__ == "__main__":
+    model = ResNet(num_classes=1)
+    print(model(torch.rand(1, 3, 50, 50)).shape)
+    print(
+        "params:",
+        sum(p.numel() for i, p in model.named_parameters() if p.requires_grad),
+    )
